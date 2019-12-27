@@ -19,3 +19,7 @@ GCP appengine for deployment
 API's Documentations :
 https://app.swaggerhub.com/apis/karanm99/StudentManagement/1.0.0
 
+
+Pylint's Executions to make sure code follow PEP8 Compliant : 
+    - pylint --load-plugins pylint_flask_sqlalchemy "filename"
+
