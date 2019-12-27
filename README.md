@@ -23,3 +23,19 @@ https://app.swaggerhub.com/apis/karanm99/StudentManagement/1.0.0
 Pylint's Executions to make sure code follow PEP8 Compliant : 
     - (pylint --load-plugins pylint_flask_sqlalchemy "filename")
 
+
+#Installation
+
+Prerequisites : must have python3 installed
+
+Command to execute : 
+    -   pip3 install -r requirements.txt
+        It will install all the required packages into systems
+        
+    -   After POSTgresql installation , Please create a database studentManagement (By executing below commands)
+        - CREATE DATABASE studentManagement;
+        - \c studentManagement
+    -   Run the handler file by command :
+        python3 handler.py
+        
+        
