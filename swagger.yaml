@@ -1,0 +1,204 @@
+---
+swagger: "2.0"
+info:
+  description: |
+    This is a Student Managment project API.
+  version: 1.0.0
+  title: Student Managment
+  contact:
+    email: karanm99@gmail.com
+host: virtserver.swaggerhub.com
+basePath: /karanm99/StudentManagement/1.0.0
+tags:
+- name: Student managment
+  description: Student Managmnet
+  externalDocs:
+    description: Find out more
+    url: https://github.com/karanm99/StudentManagement
+- name: Class
+  description: Students can join the classes
+- name: Student
+  description: Operations about Students
+  externalDocs:
+    description: Find out more about our store
+    url: http://github.com/karan
+schemes:
+- https
+- http
+paths:
+  /add_student:
+    post:
+      tags:
+      - add_student
+      summary: Add Student to Class
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: body
+        in: path
+        description: Student ID
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: Class ID
+        required: false
+        schema:
+          $ref: '#/definitions/AddStudent'
+      responses:
+        "200":
+          description: Student Added Successfully
+        "400":
+          description: Failed to Add Student
+  /update_student:
+    put:
+      tags:
+      - update_student
+      summary: Update an existing student
+      operationId: updateStudent
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: Update the existing student
+        required: true
+        schema:
+          $ref: '#/definitions/UpdateStudent'
+      responses:
+        "200":
+          description: Student updated Successfully
+        "400":
+          description: Failed to update Student
+  /delete_student:
+    delete:
+      tags:
+      - delete_student
+      summary: Delete an existing student
+      operationId: deleteStudent
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: Delete existing student in db
+        required: true
+        schema:
+          $ref: '#/definitions/DeleteStudent'
+      responses:
+        "200":
+          description: Student deleted Successfully
+        "400":
+          description: Failed to delete Student
+  /add_class:
+    post:
+      tags:
+      - add_class
+      summary: Add Class
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: Class Name
+        required: true
+        schema:
+          $ref: '#/definitions/AddClass'
+      responses:
+        "200":
+          description: Class Added Successfully
+        "400":
+          description: Failed to Add Class
+  /update_class_details:
+    post:
+      tags:
+      - update_class_details
+      summary: Update Class
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: Class Name
+        required: true
+        schema:
+          $ref: '#/definitions/UpdateClass'
+      responses:
+        "200":
+          description: Class Updated Successfully
+        "400":
+          description: Failed to Update Class
+  /assign_students:
+    post:
+      tags:
+      - assign_students
+      summary: Update Class
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: Assign Students to class
+        required: true
+        schema:
+          $ref: '#/definitions/AssignStudent'
+      responses:
+        "200":
+          description: Class assigned successfully
+definitions:
+  AddStudent:
+    type: object
+    properties:
+      class_id:
+        type: string
+      student_id:
+        type: string
+  UpdateStudent:
+    type: object
+    properties:
+      class_id:
+        type: string
+      student_id:
+        type: string
+  DeleteStudent:
+    type: object
+    properties:
+      class_id:
+        type: string
+      student_id:
+        type: string
+  AddClass:
+    type: object
+    properties:
+      class_name:
+        type: string
+  UpdateClass:
+    type: object
+    properties:
+      class_name:
+        type: string
+      class_id:
+        type: string
+      class_leader_id':
+        type: string
+  AssignStudent:
+    type: object
+    properties:
+      student_details:
+        type: object
+        properties: {}
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
