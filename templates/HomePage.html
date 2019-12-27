@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+  <link
+    rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+  />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/homepage.css') }}" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  <head>
+    <meta charset="UTF-8" />
+    <title>Home</title>
+  </head>
+
+  <header>
+    <h2>Student Management System</h2>
+  </header>
+  <body>
+    <div class="row" style="height : 10%">
+      <!-- <div
+        class="col-sm-3 butn"
+        style="margin-left:23px"
+        onclick="showAddClass()"
+      >
+        <p>Add Class </p>
+      </div> -->
+      <button
+        type="button"
+        class="col-sm-3 butn"
+        data-toggle="modal"
+        data-target="#addClassModal"
+        style="margin-left:23px"
+      >
+        Add Class
+      </button>
+      <!-- <div class="col-sm-3 butn" onclick="showAddStudent()">
+        <p>Add Student</p>
+      </div> -->
+      <button
+        type="button"
+        class="col-sm-3 butn"
+        data-toggle="modal"
+        data-target="#addStudentModal"
+      >
+        Add Student
+      </button>
+      <!-- <div class="col-sm-3 butn">
+        <p>Un-Assigned Studen</p>
+      </div> -->
+      <button
+        type="button"
+        class="col-sm-3 butn"
+        data-toggle="modal"
+        data-target="#UnAssignedStudenModal"
+      >
+        Un-Assigned Student
+      </button>
+    </div>
+    <!-- Add Class modal -->
+    <div
+      class="modal fade"
+      id="addClassModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add Class</h5>
+
+          </div>
+          <div class="modal-body">
+            <div class="">
+              <form style="margin-top:40px">
+                <div class="form-group">
+                  <input
+                    type="text"
+                    placeholder="Class Name"
+                    class="form-control"
+                    id="add_class_name"
+                  />
+                </div>
+
+                <div>
+                  <button
+                    type="submit"
+                    class="btn btn-raised btn-success"
+                    style="margin-left:5%;width: 40%"
+                    onclick="addClass()"
+                  >
+                    Add class
+                  </button>
+                  <button
+                    type="submit"
+                    class="btn btn-raised btn-warning"
+                    style="margin-left:5%;width: 40%"
+                    onclick="closeAddClass()"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Add Student modal -->
+    <div
+      class="modal fade"
+      id="addStudentModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add Student</h5>
+
+          </div>
+          <div class="modal-body">
+            <div class="" style="position: inherit;">
+              <form style="margin-top:40px">
+                <div class="form-group">
+                  <!-- <label for="student_name" class="bmd-label-floating"
+                    >Student Name</label
+                  > -->
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Student Name"
+                    id="edit_student_name"
+                  />
+                </div>
+                <div class="form-group">
+                  <!-- <label for="class_id" class="bmd-label-floating"
+                    >Class:
+                  </label>
+                  <label for="student_name" class="bmd-label-floating"
+                    >Class Name</label
+                  > -->
+                  <select class="form-control" id="edit_class_id">
+                    <option value="">Select Class Name</option>
+                    {%for class in std_class%}
+                    <option value="{{class.id}}">{{class.name}}</option>
+                    {%endfor%}
+                  </select>
+                </div>
+                <div>
+                  <button
+                    type="submit"
+                    class="btn btn-raised btn-success"
+                    style="margin-left:5%;width: 40%"
+                    onclick="addStudent()"
+                  >
+                    Add Student
+                  </button>
+                  <button
+                    type="submit"
+                    class="btn btn-raised btn-warning"
+                    style="margin-left:5%;width: 40%"
+                    onclick="showAddStudent()"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- UnAssigned Modal -->
+    <div
+      class="modal fade"
+      id="UnAssignedStudenModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog unassigned-dialog" role="document">
+        <div class="modal-content unassigned-student-modal-content" >
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Un-Assigned Students</h5>
+          </div>
+          <div class="modal-body unassigned-student">
+            <form id="unassigned-student">
+            <div class="col-12">
+              <table class="table">
+                <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Student-ID</th>
+                  <th scope="col">Student-Name</th>
+                  <th scope="col">Class-Name</th>
+                </tr>
+                </thead>
+                <tbody>
+                {%if students%}
+                {%for student in students%}
+                {%if not student.class_id%}
+                <tr>
+                  <td>{{student.id}}</td>
+                  <td>{{student.name}}</td>
+                  <td>
+                    <select class="form-control class-every-student" id="{{student.id}}-class" data-student-id="{{student.id}}">
+                      <option value="">Select Class</option>
+                      {%for i in std_class%}
+                      <option value="{{i.id}}">{{i.name}}</option>
+                      {%endfor%}
+                    </select>
+                  </td>
+                </tr>
+                {%endif%}
+                {%endfor%}
+                {%else%}
+                <td style="text-align:center" colspan="6">
+                  <p>Currently, No students are available</p>
+                </td>
+                {%endif%}
+                </tbody>
+              </table>
+            </div>
+              <div class="row" style="text-align:center">
+                <button type="submit" class="btn btn-success" onclick="UpdateUnAssignedStudents()">Update</button>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="card-body"
+      style="text-align: center;
+        padding-left: 5vw;"
+    >
+      {%for class in std_class%}
+      <div class="card col-lg-4">
+        <div class="card-body">
+          <h4 class="card-title">{{class.name}}</h4>
+          <h6 class="card-subtitle mb-2 text-muted">Prof Karan Meghani</h6>
+          <br />
+          <h6>Class Leader : {{class.class_leader}}</h6>
+          <h6>Created on : {{class.created_on}}</h6>
+          <br /><br />
+          <a
+            href="/showCourse/{{class.id}}"
+            class="btn btn-success"
+            style="  width: 99px; "
+            ><h6>View</h6></a
+          >
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </body>
+  <script>
+    function showAddStudent() {
+      $(".add-student").show();
+      $(".add-classes").hide();
+    }
+    function showAddClass() {
+      $(".add-classes").show();
+      $(".add-student").hide();
+    }
+    function closeAddClass() {
+      $(".add-classes").hide();
+    }
+    function closeAddStudent() {
+      $(".add-student").hide();
+    }
+    function addClass() {
+      var class_name = $("#add_class_name").val();
+      $.ajax("/add_class", {
+        method: "POST",
+        data: { class_name: class_name },
+        dataType: "text",
+        complete: function(data) {
+          location.reload();
+        }
+      });
+    }
+    function addStudent() {
+      var student_name = $("#edit_student_name").val();
+      var class_id = $("#edit_class_name").val();
+      var payload = {
+        student_name: student_name,
+        class_id: class_id
+      };
+      $.ajax("/add_student", {
+        method: "POST",
+        data: payload,
+        dataType: "text",
+        complete: function(data) {
+          location.reload();
+        }
+      });
+    }
+    function UpdateUnAssignedStudents(){
+        var eleStudent = document.getElementsByClassName("class-every-student");
+        var student_details = {
+        }
+        for(ele of eleStudent){
+            var student_id = ele.getAttribute('data-student-id')
+            var class_id = ele.selectedOptions[0].value
+            student_details[student_id] = class_id;
+        }
+        var payload = {
+        'data': student_details,
+        }
+        $.ajax("/assign_students", {
+          method: "POST",
+          data: student_details,
+          dataType: "text",
+          complete: function(data) {
+            location.reload();
+          }
+        });
+    }
+  </script>
+</html>

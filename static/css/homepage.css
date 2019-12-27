@@ -1,0 +1,106 @@
+     .card {
+        border: 1px #eee solid;
+        padding : 10px;
+        width: 25rem;
+        margin: 20px;
+        margin-left: 30px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0,0.5);
+     }
+     .card-body{
+       height:32vh;
+     }
+
+     .row {
+         margin : 0px;
+     }
+
+     .card-text {
+         background-color: #e3f2fd;
+         padding : 5px;
+     }
+
+     .add-student{
+            position: absolute;
+            margin-left:33vw;
+            margin-top:10vh;
+            width: 36vw;
+            height: 50vh;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.16);
+            padding:37px;
+            display:none;
+     }
+     header{
+            text-align: center;
+            background: #4db6ac;
+            height: 12vh;
+            padding: 3px;
+            box-shadow: 0 12px 17px rgba(0,0,0,0.16);
+     }
+     nav{
+            backgroud: #bdbdbd;
+            text-align:center;
+    }
+    .nav{
+            text-align: center;
+            padding:10px;
+            background-color: #777;
+    }
+    .nav1{
+            height : 45px !important;
+            text-align:center;
+            padding:10px;
+    }
+    .nav1:hover {
+            opacity: 1
+    }
+    .butn {
+          background-color: #f4511e;
+          border: none;
+          color: white;
+          padding: 16px 32px;
+          text-align: center;
+          font-size: 16px;
+          margin: 4px 2px;
+          opacity: 0.6;
+          transition: 0.3s;
+          width:32%;
+          <!--margin-left: 1%;-->
+    }
+
+    .butn:hover {
+        opacity: 1
+    }
+
+
+
+    .modal-title{
+        font-size: 26px;
+        font-family: auto;
+        font-weight: 700;
+        text-align: center;
+        color:#4db6ac;
+    }
+
+    .modal-body{
+        width:70%;
+        margin: 20px auto;
+    }
+     .unassigned-student.{
+        position: absolute;
+        margin-left:33vw;
+        margin-top:10vh;
+            box-shadow: 0 4px 8px rgba(0, 0, 0,0.5);
+        padding:37px;
+        display: inline-table !important;
+    }
+    .unassigned-student{
+       width:95%
+    }
+    .unassigned-student-modal-content{
+       width:75vw;
+       padding:25px;
+    }
+    .unassigned-dialog{
+        margin-left:13vw;
+        margin-top:10vh;
+    }

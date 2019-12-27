@@ -1,0 +1,121 @@
+    .card {
+        width : 45%;
+        margin-left: 1vw;
+        margin-bottom: 12px;
+        padding:5%
+    }
+    form {
+        padding: 0px;
+    }
+    body {
+        background-color: white
+    }
+    .add-student{
+        position: absolute;
+        margin-left:33vw;
+        margin-top:10vh;
+        width: 36vw;
+        height: 50vh;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        padding:37px;
+    }
+    .edit-class{
+        position: absolute;
+        margin-left:33vw;
+        margin-top:-4vh;
+        width: 36vw;
+        height: 70vh;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        padding:37px;
+
+    }
+    .edit-student{
+        position: absolute;
+        margin-left:33vw;
+        margin-top:10vh;
+        width: 36vw;
+        height: 70vh;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+        padding:37px;
+   }
+   header{
+        text-align: center;
+        background: #4db6ac;
+        height: 12vh;
+        padding: 3px;
+        box-shadow: 0 12px 17px rgba(0,0,0,0.16), 0 9px 14px rgba(0,0,0,0.23);
+    }
+    nav{
+        backgroud: #bdbdbd;
+        text-align:center;
+    }
+    .nav{
+        text-align: center;
+        padding:10px;
+        background-color: #777;
+    }
+
+
+    .nav1{
+        height : 45px !important;
+        text-align:center;
+        padding:10px;
+
+    }
+
+    .nav1:hover {
+    opacity: 1
+    }
+    .butn {
+          background-color: #f4511e;
+          border: none;
+          color: white;
+          padding: 16px 32px;
+          text-align: center;
+          font-size: 16px;
+          margin: 4px 0px;
+          opacity: 0.6;
+          transition: 0.3s;
+          width:50%;
+          <!--margin-left: 1%;-->
+    }
+    .butn:hover {
+        opacity: 1
+    }
+    .modal-title {
+        font-size: 26px;
+        font-family: auto;
+        font-weight: 700;
+        text-align: center;
+        color:#4db6ac;
+    }
+    .modal-body {
+        width:  70%;
+        margin: 30px auto;
+    }
+    .modal-header{
+        display: flex;
+        justify-content: center;
+    }
+    .butn {
+
+    }
+     .unassigned-student.{
+        position: absolute;
+        margin-left:33vw;
+        margin-top:10vh;
+            box-shadow: 0 4px 8px rgba(0, 0, 0,0.5);
+        padding:37px;
+        display: inline-table !important;
+    }
+    .unassigned-student{
+       width:95%
+    }
+    .unassigned-student-modal-content{
+       width:75vw;
+       padding:25px;
+    }
+    .unassigned-dialog{
+        margin-left:13vw;
+        margin-top:10vh;
+    }
