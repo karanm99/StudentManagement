@@ -11,11 +11,13 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.declarative import declarative_base
 
+DB_NAME = "studentmanagement"
 # new type
 Uuid = NewType('Uuid', str)
 
 APP = Flask(__name__)
-APP.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://postgres:root@localhost:5432/studentManagement'
+APP.config['SQLALCHEMY_DATABASE_URI'] = \
+    'postgres://postgres:root@localhost:5432/{0}'.format(DB_NAME)
 APP.config['SECRET_KEY'] = "random string"
 APP.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -45,7 +47,8 @@ class Student(DB.Model, Base):
     # id = DB.Column(DB.Integer, primary_key=True, autoincrement=True)
     id = DB.Column(UUID, primary_key=True, default=uuid4)
     name = DB.Column(DB.String(100))
-    class_id = DB.Column(UUID, nullable=True, index=True)
+    class_id = DB.Column(UUID, nullable=True, index=False)
+    clss = DB.Column(UUID, nullable=True, index=False)
     created_on = DB.Column(DB.DateTime)
     updated_on = DB.Column(DB.DateTime, index=False, nullable=True)
 
@@ -338,3 +341,14 @@ class StudentClassDAO(StudentClass):
         """
         classes = StudentClass.query.filter_by(class_leader=student_id).first()
         return classes
+
+#
+# class XSRFToken():
+#
+#     def create_sha256_signature(key=None, message=None):
+#         key = "E49756B4C8FAB4E48222A3E7F3B97CC3"
+#         message = "hello"
+#         import pdb;pdb.set_trace()
+#         byte_key = binascii.unhexlify(key)
+#         message = message.encode()
+#         return hmac.new(byte_key, message, hashlib.sha256).hexdigest().upper()

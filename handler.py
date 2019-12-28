@@ -5,9 +5,12 @@ handler.py has different Class which deals with APIs of Student and StudentClass
 
 import logging
 from flask import request, render_template
+import sqlalchemy
+import sqlalchemy_utils
 from models import DB as db, APP as app
 from models import StudentDAO
 from models import StudentClassDAO
+import models
 
 db.init_app(app)
 
@@ -163,5 +166,16 @@ def display_course(course_id):
                            std_class=selected_class, un_student=unassigned_students, leader=leader)
 
 if __name__ == '__main__':
+
+    if not sqlalchemy_utils.functions.database_exists(
+            'postgres://postgres:root@localhost:5432/{0}'.format(models.DB_NAME)):
+        logging.info("Database not Exists, Creating a database with name %s", models.DB_NAME)
+        ENGINE = sqlalchemy.create_engine("postgres://postgres:root@localhost:5432")
+        CONN = ENGINE.connect()
+        CONN.execute("commit")
+        CONN.execute("create database {0}".format(models.DB_NAME))
+        CONN.close()
+    else:
+        logging.info("Database Exists.")
     db.create_all()
     app.run(debug=True)
