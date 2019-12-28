@@ -22,12 +22,18 @@ def show_all():
     :return:
     """
     try:
+        studentdao_xsrf_token = models.XSRFToken.create_xsrf_token(
+            message=StudentDAO.XSRF_TOKEN_MESSAGE)
+        studentclassdao_xsrf_token = models.XSRFToken.create_xsrf_token(
+            message=StudentClassDAO.XSRF_TOKEN_MESSAGE)
         all_students = StudentDAO.get_all_students()
         all_classes = StudentClassDAO.get_all_classes()
         logging.info("Successfully fetched data")
     except Exception as exception:  # pylint: disable=broad-except
         logging.warning("Failed to load data due to %s", exception)
-    return render_template('HomePage.html', students=all_students, std_class=all_classes)
+    return render_template('HomePage.html', students=all_students,
+                           std_class=all_classes, studentdao_xsrf_token=studentdao_xsrf_token,
+                           studentclassdao_xsrf_token=studentclassdao_xsrf_token)
 
 @app.route('/add_student', methods=['POST'])
 def add_student():
@@ -37,6 +43,11 @@ def add_student():
     """
     if request.method == 'POST':
         try:
+            xsrf_token = request.form.get('xsrf_token')
+            if not models.XSRFToken().generate_and_assert_token(
+                    message=StudentDAO.XSRF_TOKEN_MESSAGE, token=xsrf_token):
+                return ({'message': 'Unauthorized Request'}, 401)
+
             class_id = request.form.get('class_id')
             student_name = request.form.get('student_name')
             StudentDAO.add_student(class_id=class_id, student_name=student_name)
@@ -55,6 +66,11 @@ def delete_student():
     """
     if request.method == 'POST':
         try:
+            xsrf_token = request.form.get('xsrf_token')
+            if not models.XSRFToken().generate_and_assert_token(
+                    message=StudentDAO.XSRF_TOKEN_MESSAGE, token=xsrf_token):
+                return ({'message': 'Unauthorized Request'}, 401)
+
             student_id = request.form.get('student_id')
             course_id = request.form.get('course_id')
             StudentDAO.delete_student(id=student_id, class_id=course_id)
@@ -73,6 +89,11 @@ def update_student():
     """
     if request.method == 'PUT':
         try:
+            xsrf_token = request.form.get('xsrf_token')
+            if not models.XSRFToken().generate_and_assert_token(
+                    message=StudentDAO.XSRF_TOKEN_MESSAGE, token=xsrf_token):
+                return ({'message': 'Unauthorized Request'}, 401)
+
             student_id = request.form.get('student_id')
             course_id = request.form.get('course_id')
             student_name = request.form.get('student_name')
@@ -114,9 +135,14 @@ def add_class():
     """
     if request.method == 'POST':
         try:
+            xsrf_token = request.form.get('xsrf_token')
+            if not models.XSRFToken().generate_and_assert_token(
+                    message=StudentClassDAO.XSRF_TOKEN_MESSAGE, token=xsrf_token):
+                return ({'message': 'Unauthorized Request'}, 401)
+
             class_name = request.form.get('class_name')
             StudentClassDAO.add_class(class_name)
-            logging.warning("Successfully class added")
+            logging.info("Successfully class added")
             return ({'message':'Class added successfully'}, 200)
         except Exception as exception:  # pylint: disable=broad-except
             logging.warning("Failed to add class due to %s", exception)
@@ -132,6 +158,11 @@ def update_class_details():
     """
     if request.method == 'PUT':
         try:
+            xsrf_token = request.form.get('xsrf_token')
+            if not models.XSRFToken().generate_and_assert_token(
+                    message=StudentClassDAO.XSRF_TOKEN_MESSAGE, token=xsrf_token):
+                return ({'message': 'Unauthorized Request'}, 401)
+
             class_id = request.form.get('class_id')
             class_name = request.form.get('class_name')
             class_leader_id = request.form.get('class_leader_id')
@@ -155,6 +186,10 @@ def display_course(course_id):
     """
     if request.method == 'GET':
         try:
+            studentdao_xsrf_token = models.XSRFToken.create_xsrf_token(
+                message=StudentDAO.XSRF_TOKEN_MESSAGE)
+            studentclassdao_xsrf_token = models.XSRFToken.create_xsrf_token(
+                message=StudentClassDAO.XSRF_TOKEN_MESSAGE)
             students = StudentDAO.get_students_class_id(class_id=course_id)
             unassigned_students = StudentDAO.get_all_unassigned_students()
             selected_class = StudentClassDAO.get_class_by_id(course_id)
@@ -163,7 +198,11 @@ def display_course(course_id):
         except Exception as exception:  # pylint: disable=broad-except
             logging.warning("Failed to fetch due to %s", exception)
     return render_template('course.html', students=students,
-                           std_class=selected_class, un_student=unassigned_students, leader=leader)
+                           std_class=selected_class,
+                           un_student=unassigned_students,
+                           studentdao_xsrf_token=studentdao_xsrf_token,
+                           studentclassdao_xsrf_token=studentclassdao_xsrf_token,
+                           leader=leader)
 
 if __name__ == '__main__':
 

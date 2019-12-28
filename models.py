@@ -6,6 +6,7 @@ models.py has different Class which deals with DAO of Student and StudentClass
 import datetime
 from uuid import uuid4 as gen_uuid
 from typing import NewType
+import base64
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.dialects.postgresql import UUID
@@ -91,6 +92,7 @@ class StudentDAO(Student):
         This is a Student data access object of class Student
         for db connection with PostgreSQL. Performs CRUD Operations
     """
+    XSRF_TOKEN_MESSAGE = "StudentDAO_XSRF_TOKEN_MESSAGE"
 
     @staticmethod
     def add_student(class_id=None, student_name=None):
@@ -234,6 +236,7 @@ class StudentClass(DB.Model, Base):
         created_on (datetime): created on time and date.
         updated_on (datetime): updated on time and date.
     """
+    XSRF_TOKEN_MESSAGE = "StudentClassDAO_XSRF_TOKEN_MESSAGE"
 
     id = DB.Column(UUID, primary_key=True, index=True, default=uuid4)
     name = DB.Column(DB.String(100))
@@ -342,13 +345,35 @@ class StudentClassDAO(StudentClass):
         classes = StudentClass.query.filter_by(class_leader=student_id).first()
         return classes
 
-#
-# class XSRFToken():
-#
-#     def create_sha256_signature(key=None, message=None):
-#         key = "E49756B4C8FAB4E48222A3E7F3B97CC3"
-#         message = "hello"
-#         import pdb;pdb.set_trace()
-#         byte_key = binascii.unhexlify(key)
-#         message = message.encode()
-#         return hmac.new(byte_key, message, hashlib.sha256).hexdigest().upper()
+
+class XSRFToken():
+    """
+    XSRF Token class uses base64 to generate a unique code for message,
+    to autherize the existing API
+    """
+
+    @staticmethod
+    def create_xsrf_token(message=None):
+        """
+
+        :param message:
+        :return: base64 encoded token
+        """
+        token = base64.b64encode(message.encode('utf-8', errors='strict'))
+        return token
+
+    def generate_and_assert_token(self, message=None, token=None):
+        """
+
+        :param message:
+        :param token:
+        :return: Assertion of token
+        """
+        if not token:
+            return False
+
+        new_token = str(self.create_xsrf_token(message=message))
+        if new_token == token:
+            return True
+
+        return False
