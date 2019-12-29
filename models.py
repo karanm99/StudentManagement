@@ -12,7 +12,8 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.declarative import declarative_base
 
-DB_NAME = "studentmanagement"
+DB_NAME = 'studentmanagement121'
+
 # new type
 Uuid = NewType('Uuid', str)
 
@@ -46,10 +47,10 @@ class Student(DB.Model, Base):
     """
 
     # id = DB.Column(DB.Integer, primary_key=True, autoincrement=True)
+    __tablename__ = 'student'
     id = DB.Column(UUID, primary_key=True, default=uuid4)
     name = DB.Column(DB.String(100))
-    class_id = DB.Column(UUID, nullable=True, index=False)
-    clss = DB.Column(UUID, nullable=True, index=False)
+    class_id = DB.Column(UUID, DB.ForeignKey('studentclass.id'), nullable=True, index=True)
     created_on = DB.Column(DB.DateTime)
     updated_on = DB.Column(DB.DateTime, index=False, nullable=True)
 
@@ -237,10 +238,11 @@ class StudentClass(DB.Model, Base):
         updated_on (datetime): updated on time and date.
     """
     XSRF_TOKEN_MESSAGE = "StudentClassDAO_XSRF_TOKEN_MESSAGE"
-
+    __tablename__ = 'studentclass'
     id = DB.Column(UUID, primary_key=True, index=True, default=uuid4)
     name = DB.Column(DB.String(100))
-    class_leader = DB.Column(UUID, nullable=True, index=True)
+    # class_leader = DB.Column(UUID, nullable=True, index=True, Foriegn)
+    class_leader = DB.Column(UUID, DB.ForeignKey('student.id'), nullable=True, index=True)
     created_on = DB.Column(DB.DateTime)
     updated_on = DB.Column(DB.DateTime, index=False, nullable=True)
 

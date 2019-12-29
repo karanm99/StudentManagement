@@ -21,6 +21,10 @@ def show_all():
     and render it on UI
     :return:
     """
+    all_classes = []
+    all_students = []
+    studentdao_xsrf_token = None
+    studentclassdao_xsrf_token = None
     try:
         studentdao_xsrf_token = models.XSRFToken.create_xsrf_token(
             message=StudentDAO.XSRF_TOKEN_MESSAGE)
