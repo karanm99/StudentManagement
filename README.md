@@ -14,6 +14,10 @@ GCP appengine for deployment
     - courses.html  : Course View Page
     - HomePage.html : HomePage for adding course and students
 - #handler.py : It is core of the web application which contains all the handlers which serve each an every request
+- #configuration.py : Contains constans used for application
+- #Dockerfile : contains information required for installation on docker container
+- #docker-compose.yaml : Contains configuration info for docker-compose
+- #requirements.txt : Contains all the required library details.
 
 
 API's Documentations :
@@ -38,4 +42,13 @@ Command to execute :
     -   Run the handler file by command :
         python3 handler.py
         
+ #Running The App Using Docker-compose
+
+Run the below commands : 
+    -   git clone https://github.com/karanm99/StudentManagement.git
+    -   Install Docker-compose (If that is not installed)
+    -   In the StudentManagement Directory Run docker-compose build
+    -   then run docker-compose up ("Caution : IF its giving error, Please run it twice") :  To run the application on                            http://localhost:5000
+
+    
         
