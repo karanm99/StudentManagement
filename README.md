@@ -43,15 +43,15 @@ Command to execute :
         python3 handler.py
         
 
-#Running The App Using Docker-compose
+# Running The App Using Docker-compose
 
-Please follow the below steps : 
-    - #git clone https://github.com/karanm99/StudentManagement.git
-    - #Install Python3, Pip3
-    - #Create and activate virtual environment (prefered) 
-    - #Install Docker and Docker-compose (If that is not installed)
-    - #In the StudentManagement Directory Run docker-compose build
-    - #then run docker-compose up ("Caution : IF its giving error, Please run it twice") :  To run the application on                            http://localhost:5000
+#Please follow the below steps : 
+- #git clone https://github.com/karanm99/StudentManagement.git
+- #Install Python3, Pip3
+- #Create and activate virtual environment (prefered) 
+- #Install Docker and Docker-compose (If that is not installed)
+- #In the StudentManagement Directory Run docker-compose build
+- #then run docker-compose up ("Caution : IF its giving error, Please run it twice") :  To run the application on                            http://localhost:5000
 
     
         
