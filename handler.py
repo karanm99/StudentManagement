@@ -220,8 +220,8 @@ if __name__ == '__main__':
             PRODUCTION_MODE_URL, CONFIGURATION.DB_NAME)):
         logging.info("Database not Exists, Creating a"
                      " database with name %s", CONFIGURATION.DB_NAME)
-        ENGINE = sqlalchemy.create_engine("{0}/{1}".format(
-            PRODUCTION_MODE_URL, CONFIGURATION.DB_NAME))
+        ENGINE = sqlalchemy.create_engine(
+            "{0}".format(PRODUCTION_MODE_URL))
         CONN = ENGINE.connect()
         CONN.execute("commit")
         CONN.execute("create database {0}".format(CONFIGURATION.DB_NAME))
@@ -230,5 +230,5 @@ if __name__ == '__main__':
         logging.info("Database Exists.")
 
     db.create_all()
-    # app.run(host='0.0.0.0',debug=True)
-    app.run(debug=True)
+    app.run(host='0.0.0.0',debug=True)
+    # app.run(debug=True)
