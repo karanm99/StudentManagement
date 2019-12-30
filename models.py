@@ -11,17 +11,17 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.declarative import declarative_base
-
-DB_NAME = 'studentmanagement121'
+import configuration as CONFIGURATION
 
 # new type
 Uuid = NewType('Uuid', str)
 
 APP = Flask(__name__)
 APP.config['SQLALCHEMY_DATABASE_URI'] = \
-    'postgres://postgres:root@localhost:5432/{0}'.format(DB_NAME)
-APP.config['SECRET_KEY'] = "random string"
-APP.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    CONFIGURATION.ProductionDBServiceURL.get_production_mode_db_url()
+APP.config['SECRET_KEY'] = CONFIGURATION.DB_APP_CONFIG_SECRET_KEY
+APP.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = \
+    CONFIGURATION.DB_APP_CONFIG_SQLALCHEMY_TRACK_MODIFICATIONS
 
 DB = SQLAlchemy(APP)
 Base = declarative_base()

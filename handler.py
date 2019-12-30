@@ -11,6 +11,9 @@ from models import DB as db, APP as app
 from models import StudentDAO
 from models import StudentClassDAO
 import models
+import configuration as CONFIGURATION
+
+PRODUCTION_MODE_URL = None
 
 db.init_app(app)
 
@@ -210,15 +213,22 @@ def display_course(course_id):
 
 if __name__ == '__main__':
 
-    if not sqlalchemy_utils.functions.database_exists(
-            'postgres://postgres:root@localhost:5432/{0}'.format(models.DB_NAME)):
-        logging.info("Database not Exists, Creating a database with name %s", models.DB_NAME)
-        ENGINE = sqlalchemy.create_engine("postgres://postgres:root@localhost:5432")
+    PRODUCTION_MODE_URL = CONFIGURATION.ProductionDBServiceURL.get_production_mode_db_url()
+    models.PRODUCTION_URL_FOR_DB = PRODUCTION_MODE_URL
+
+    if not sqlalchemy_utils.functions.database_exists("{0}/{1}".format(
+            PRODUCTION_MODE_URL, CONFIGURATION.DB_NAME)):
+        logging.info("Database not Exists, Creating a"
+                     " database with name %s", CONFIGURATION.DB_NAME)
+        ENGINE = sqlalchemy.create_engine("{0}/{1}".format(
+            PRODUCTION_MODE_URL, CONFIGURATION.DB_NAME))
         CONN = ENGINE.connect()
         CONN.execute("commit")
-        CONN.execute("create database {0}".format(models.DB_NAME))
+        CONN.execute("create database {0}".format(CONFIGURATION.DB_NAME))
         CONN.close()
     else:
         logging.info("Database Exists.")
+
     db.create_all()
+    # app.run(host='0.0.0.0',debug=True)
     app.run(debug=True)
