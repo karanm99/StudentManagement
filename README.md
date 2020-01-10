@@ -4,8 +4,7 @@ StudentManagement - A Flask application to perform CRUD operations on Student, S
 
 
 #Technologies Used : 
-Python 2.7, webapp2 framework HTML, CSS, Jquery, Bootstrap, GCP datastore
-GCP appengine for deployment
+Python 3.6, flask framework, POSTgreSQL, HTML, CSS, Javascript, bootstrap framework, docker, docker-compose
 
 #Folder Structure:
 
